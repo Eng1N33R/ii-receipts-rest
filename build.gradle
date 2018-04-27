@@ -1,0 +1,66 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.1.RELEASE'
+        itextVersion = '7.1.1'
+        hibernateVersion = '5.2.16.Final'
+        liquibaseVersion = '3.6.1'
+        jwtVersion = '0.9.0'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.franzbecker:gradle-lombok:1.13"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+    }
+}
+
+group 'io.engi'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.franzbecker.gradle-lombok'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url 'http://repo.spring.io/milestone'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.postgresql', name: 'postgresql'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-oauth2'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: jwtVersion
+    compile group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
+    compile group: 'com.itextpdf', name: 'kernel', version: itextVersion
+    compile group: 'com.itextpdf', name: 'io', version: itextVersion
+    compile group: 'com.itextpdf', name: 'layout', version: itextVersion
+    compile group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.M9'
+    }
+}
+
+lombok {
+    sha256 = "" // skip verifyLombok
+}
