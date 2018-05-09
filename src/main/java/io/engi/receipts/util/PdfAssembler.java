@@ -9,11 +9,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import io.engi.receipts.exception.PdfAssemblyException;
-import io.engi.receipts.persistence.model.Order;
-import io.engi.receipts.persistence.model.OrderEntry;
-import io.engi.receipts.persistence.model.Product;
-import io.engi.receipts.persistence.repository.ProductRepository;
+import io.engi.receipts.persistence.model.*;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -23,9 +19,8 @@ import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
-class PdfAssembler {
+public class PdfAssembler {
     final private OutputStream out;
-    final private ProductRepository repository;
 
     public void assemble(Order order) throws IOException {
         PdfDocument pdf = new PdfDocument(new PdfWriter(out));
@@ -53,9 +48,8 @@ class PdfAssembler {
         table.addHeaderCell(new Cell().add(new Paragraph("Amount").setFont(bold)));
         table.addHeaderCell(new Cell().add(new Paragraph("Price").setFont(bold)));
         BigDecimal totalPrice = BigDecimal.valueOf(0);
-        for (OrderEntry entry : order.getOrderEntries()) {
-            Product product = repository.findById(entry.getProduct())
-                    .orElseThrow(() -> new PdfAssemblyException("Product lookup failed"));
+        for (Entry entry : order.getEntries()) {
+            Product product = entry.getProduct();
             BigDecimal entryPrice = product.getPrice()
                     .multiply(BigDecimal.valueOf(entry.getAmount()));
             totalPrice = totalPrice.add(entryPrice);

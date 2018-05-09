@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+.idea/.name
+
 ### macOS template
 # General
 .DS_Store
@@ -47,8 +47,6 @@ Temporary Items
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
-# Gradle:
-.idea/**/gradle.xml
 .idea/**/libraries
 
 # CMake
@@ -121,6 +119,7 @@ $RECYCLE.BIN/
 *.zip
 *.tar.gz
 *.rar
+*.gz
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -139,15 +138,17 @@ hs_err_pid*
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
-### Gradle template
-.gradle
-/build/
+### Maven template
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 
-# Ignore Gradle GUI config
-gradle-app.setting
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Cache of project
-.gradletasknamecache

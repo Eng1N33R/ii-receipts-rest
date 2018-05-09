@@ -8,24 +8,22 @@ import org.springframework.stereotype.Service;
 
 @Service("userDetailsService")
 public class DummyUserDetails implements UserDetailsService {
-    private final UserDetails user =
-            User.withUsername("user")
-                    .password("qwerty")
-                    .roles("USER")
-                    .build();
-
-    private final UserDetails user2 =
-            User.withUsername("debug")
-                    .password("debug")
-                    .roles("USER")
-                    .build();
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (username.equals("user"))
-            return user;
+            return User.withUsername("user")
+                    .password("{noop}qwerty")
+                    .authorities("ROLE_USER")
+                    .roles("USER")
+                    .build();
         if (username.equals("debug"))
-            return user2;
+            return User.withUsername("debug")
+                    .password("{noop}debug")
+                    .authorities("ROLE_USER")
+                    .roles("USER")
+                    .build();
         throw new UsernameNotFoundException(String.format("No user found with username '%s'", username));
     }
+
+
 }

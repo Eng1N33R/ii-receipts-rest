@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class DummyDataGenerator implements ApplicationRunner {
 
     //FIXME: Way too slow (around three minutes!)
     @Override
+    @Transactional
     public void run(ApplicationArguments args) {
         if (productRepository.count() == 0) {
             log.info("Beginning to input dummy data");

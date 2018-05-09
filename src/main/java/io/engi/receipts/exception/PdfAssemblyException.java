@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="PDF creation failed")
 @Getter
-public class PdfAssemblyException extends RuntimeException {
+public class PdfAssemblyException extends Exception {
     private final String message;
 
     public PdfAssemblyException(String message) {

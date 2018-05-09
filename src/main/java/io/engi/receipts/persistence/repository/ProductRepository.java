@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product, UUID> {
-    @Query(value = "select * from products where cast(id as text) like ?1% limit ?2",
-            countQuery = "select count(*) from products where cast(id as text) like ?1%",
+    @Query(value = "select * from product where cast(id as text) like ?1% limit ?2",
+            countQuery = "select count(*) from product where cast(id as text) like ?1%",
             nativeQuery = true)
     List<Product> findByPartialId(String partialId, int limit);
 }
